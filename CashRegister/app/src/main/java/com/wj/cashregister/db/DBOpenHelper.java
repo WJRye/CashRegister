@@ -17,7 +17,7 @@ public class DBOpenHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table if not exists goods(" + "barCode text(64) PRIMARY KEY," + "name text(32)," + "unit text(16)," + "price real" + "" + "goodsType integer" + ")");
+        db.execSQL("create table if not exists goods(" + "barCode text(64) PRIMARY KEY," + "name text(32)," + "unit text(16)," + "price real," + "goodsType integer" + ")");
     }
 
     @Override

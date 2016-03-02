@@ -4,18 +4,28 @@ package com.wj.cashregister.model.type;
  * Created by wangjiang on 2016/3/1.
  */
 public class GoodsTypeFree extends GoodsType {
-    private static final int TYPE = 2;
-    private String content;
+    private static final int RULE_FREE_COUNT = 1;
+    private static final int RULE_MIN_COUNT = 2;
+
+    private int mFreeCount = 0;
 
     public GoodsTypeFree() {
-        super(TYPE);
+        super(TYPE_FREE);
     }
 
-    public String getContent() {
-        return content;
+    public int getRuleFreeCount() {
+        return RULE_FREE_COUNT;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public int getRuleMinCount() {
+        return RULE_MIN_COUNT;
+    }
+
+    public void setFreeCount(int freeCount) {
+        mFreeCount = freeCount;
+    }
+
+    public int getFreeCount() {
+        return mFreeCount;
     }
 }

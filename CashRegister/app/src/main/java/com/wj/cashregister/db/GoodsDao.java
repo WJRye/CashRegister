@@ -1,11 +1,16 @@
 package com.wj.cashregister.db;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteStatement;
 
 import com.wj.cashregister.model.Goods;
+import com.wj.cashregister.model.type.GoodsType;
+import com.wj.cashregister.model.type.GoodsTypeDiscount;
+import com.wj.cashregister.model.type.GoodsTypeDouble;
+import com.wj.cashregister.model.type.GoodsTypeFree;
+import com.wj.cashregister.model.type.GoodsTypeNormal;
 
 import java.util.List;
 
@@ -32,7 +37,7 @@ public class GoodsDao {
         }
     }
 
-    public void insertGoodses(List<Goods> goodses) {
+    public void insertGoodses(List<Goods> goodses) throws Exception {
         SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
@@ -47,11 +52,38 @@ public class GoodsDao {
                 sqLiteStatement.executeInsert();
             }
             db.setTransactionSuccessful();
-        } catch (SQLiteException e) {
-            e.printStackTrace();
         } finally {
             db.endTransaction();
             db.close();
         }
     }
+
+    public Goods queryGoodsByBarCode(String barCode) {
+        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from goods where barCode=?", new String[]{barCode});
+        Goods goods = new Goods();
+        if (cursor != null) {
+            while (cursor.moveToNext()) {
+                goods.setBarCode(cursor.getString(0));
+                goods.setName(cursor.getString(1));
+                goods.setUnit(cursor.getString(2));
+                goods.setPrice(cursor.getFloat(3));
+                int goodsType = cursor.getInt(4);
+                if (goodsType == GoodsType.TYPE_DISCOUNT) {
+                    goods.setGoodsType(new GoodsTypeDiscount());
+                } else if (goodsType == GoodsType.TYPE_FREE) {
+                    goods.setGoodsType(new GoodsTypeFree());
+                } else if (goodsType == GoodsType.TYPE_NORMAL) {
+                    goods.setGoodsType(new GoodsTypeNormal());
+                } else if (goodsType == GoodsType.TYPE_DOUBLE) {
+                    goods.setGoodsType(new GoodsTypeDouble());
+                }
+            }
+            cursor.close();
+            cursor = null;
+        }
+        db.close();
+        return goods;
+    }
 }
+
