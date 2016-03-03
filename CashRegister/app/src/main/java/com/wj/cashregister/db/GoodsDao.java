@@ -18,10 +18,10 @@ import java.util.List;
  * Created by wangjiang on 2016/3/1.
  */
 public class GoodsDao {
-    private DBOpenHelper mDbOpenHelper;
+    private DBOpenHelper mDBOpenHelper;
 
     private GoodsDao(Context context) {
-        mDbOpenHelper = new DBOpenHelper(context);
+        mDBOpenHelper = new DBOpenHelper(context);
     }
 
     public static GoodsDao getInstance(Context context) {
@@ -38,7 +38,7 @@ public class GoodsDao {
     }
 
     public void insertGoodses(List<Goods> goodses) throws Exception {
-        SQLiteDatabase db = mDbOpenHelper.getWritableDatabase();
+        SQLiteDatabase db = mDBOpenHelper.getWritableDatabase();
         db.beginTransaction();
         try {
             SQLiteStatement sqLiteStatement = db.compileStatement("insert into goods values(?,?,?,?,?)");
@@ -48,7 +48,11 @@ public class GoodsDao {
                 sqLiteStatement.bindString(2, goods.getName());
                 sqLiteStatement.bindString(3, goods.getUnit());
                 sqLiteStatement.bindDouble(4, goods.getPrice());
-                sqLiteStatement.bindLong(5, goods.getGoodsType().getType());
+                if (goods.getGoodsType() != null) {
+                    sqLiteStatement.bindLong(5, goods.getGoodsType().getType());
+                } else {
+                    sqLiteStatement.bindLong(5, GoodsType.TYPE_NORMAL);
+                }
                 sqLiteStatement.executeInsert();
             }
             db.setTransactionSuccessful();
@@ -59,7 +63,7 @@ public class GoodsDao {
     }
 
     public Goods queryGoodsByBarCode(String barCode) {
-        SQLiteDatabase db = mDbOpenHelper.getReadableDatabase();
+        SQLiteDatabase db = mDBOpenHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from goods where barCode=?", new String[]{barCode});
         Goods goods = new Goods();
         if (cursor != null) {
@@ -84,6 +88,12 @@ public class GoodsDao {
         }
         db.close();
         return goods;
+    }
+
+    public void update(String barCode, GoodsType goodsType) {
+        SQLiteDatabase db = mDBOpenHelper.getWritableDatabase();
+        db.execSQL("update goods set goodsType=? where barCode=?", new String[]{Integer.toString(goodsType.getType()), barCode});
+        db.close();
     }
 }
 

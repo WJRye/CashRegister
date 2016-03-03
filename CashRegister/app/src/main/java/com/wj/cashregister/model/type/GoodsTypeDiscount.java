@@ -6,6 +6,7 @@ package com.wj.cashregister.model.type;
 public class GoodsTypeDiscount extends GoodsType {
 
     private final float RATE = 0.95f;
+    private float discountSavings = 0.00f;
 
     public GoodsTypeDiscount() {
         super(TYPE_DISCOUNT);
@@ -15,5 +16,11 @@ public class GoodsTypeDiscount extends GoodsType {
         return RATE;
     }
 
+    public float getDiscountSavings() {
+        return discountSavings;
+    }
 
+    public void setDiscountSavings(float discountSavings) {
+        this.discountSavings = discountSavings;
+    }
 }

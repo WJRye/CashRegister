@@ -7,7 +7,8 @@ public class GoodsTypeFree extends GoodsType {
     private static final int RULE_FREE_COUNT = 1;
     private static final int RULE_MIN_COUNT = 2;
 
-    private int mFreeCount = 0;
+    private int freeCount = 0;
+    private float freeSavings = 0.00f;
 
     public GoodsTypeFree() {
         super(TYPE_FREE);
@@ -21,11 +22,19 @@ public class GoodsTypeFree extends GoodsType {
         return RULE_MIN_COUNT;
     }
 
-    public void setFreeCount(int freeCount) {
-        mFreeCount = freeCount;
+    public int getFreeCount() {
+        return freeCount;
     }
 
-    public int getFreeCount() {
-        return mFreeCount;
+    public void setFreeCount(int freeCount) {
+        this.freeCount = freeCount;
+    }
+
+    public float getFreeSavings() {
+        return freeSavings;
+    }
+
+    public void setFreeSavings(float freeSavings) {
+        this.freeSavings = freeSavings;
     }
 }
