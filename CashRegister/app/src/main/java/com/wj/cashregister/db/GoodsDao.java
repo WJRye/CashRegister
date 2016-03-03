@@ -16,6 +16,8 @@ import java.util.List;
 
 /**
  * Created by wangjiang on 2016/3/1.
+ * <p/>
+ * 该类用于管理对表goods的增删改查操作
  */
 public class GoodsDao {
     private DBOpenHelper mDBOpenHelper;
@@ -24,6 +26,9 @@ public class GoodsDao {
         mDBOpenHelper = new DBOpenHelper(context);
     }
 
+    /*
+    * 获取GoodsDao对象
+    * */
     public static GoodsDao getInstance(Context context) {
         return GoodsDaoHolder.getGoodsDao(context);
     }
@@ -37,6 +42,9 @@ public class GoodsDao {
         }
     }
 
+    /*
+    * 插入goods 数据
+    * */
     public void insertGoodses(List<Goods> goodses) throws Exception {
         SQLiteDatabase db = mDBOpenHelper.getWritableDatabase();
         db.beginTransaction();
@@ -62,6 +70,9 @@ public class GoodsDao {
         }
     }
 
+    /*
+    * 根据条形码查询Goods
+    * */
     public Goods queryGoodsByBarCode(String barCode) {
         SQLiteDatabase db = mDBOpenHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery("select * from goods where barCode=?", new String[]{barCode});
@@ -90,7 +101,10 @@ public class GoodsDao {
         return goods;
     }
 
-    public void update(String barCode, GoodsType goodsType) {
+    /*
+    * 根据条形码修改GoodsType
+    * */
+    public void updateGoodsTypeByBarCode(String barCode, GoodsType goodsType) {
         SQLiteDatabase db = mDBOpenHelper.getWritableDatabase();
         db.execSQL("update goods set goodsType=? where barCode=?", new String[]{Integer.toString(goodsType.getType()), barCode});
         db.close();

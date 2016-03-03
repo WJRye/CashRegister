@@ -1,4 +1,4 @@
-package com.wj.cashregister;
+package com.wj.cashregister.checkout;
 
 import android.content.Context;
 
@@ -23,24 +23,36 @@ import java.util.Set;
 
 /**
  * Created by wangjiang on 2016/3/1.
+ * <p/>
+ * 该类将解析输入的JSON数据，并返回商品的计算结果
  */
 public class Checkout {
+    //商店名字
     private final String STORE_NAME = "***<没钱赚商店>购物清单***";
+    //换行
     private final char ENTER = '\n';
+    //中间分隔符
     private final String SPLIT_CENNTER = "---------------";
+    //结尾分隔符
     private final String SPLIT_END = "***************";
+    //字符买二赠一商品，用于打印小票用
     private final String FREE_GOODS = "买二赠一商品";
+    //字符总计，用于打印小票用
     private final String TOTAL = "总计";
-
+    //上下文对象
     private Context mContext;
+    //存储所有的商品
     private Set<Goods> mTotalGoodses = new LinkedHashSet<>();
+    //存储“买二赠一”的商品
     private Set<Goods> mFreeGoodses = new LinkedHashSet<>();
 
     public Checkout(Context context) {
         mContext = context;
     }
 
-
+    /*
+    *  输入JSON数据，并对商品信息进行封装
+    * */
     public void input(String json) throws Exception {
         if (json == null || "".equals(json.trim()))
             throw new IllegalArgumentException("JSON is null or empty!");
@@ -52,11 +64,15 @@ public class Checkout {
             String barCode = entry.getKey();
             Goods goods = goodsDao.queryGoodsByBarCode(barCode);
             goods.setCount(entry.getValue());
+            //添加商品
             mTotalGoodses.add(goods);
             iterator.remove();
         }
     }
 
+    /*
+    * 解析JSON数据，并返回解析后的条形码和商品个数
+    * */
     private Map<String, Integer> parse(String json) throws IOException, JSONException {
         Map<String, Integer> results = new HashMap<>();
         org.json.JSONArray jsonArray = new JSONArray(json);
@@ -83,6 +99,9 @@ public class Checkout {
         return results;
     }
 
+    /*
+    * 输出最后的结果
+    * */
     public String output() {
         StringBuilder results = new StringBuilder();
         results.append(STORE_NAME);
@@ -92,6 +111,9 @@ public class Checkout {
         return results.toString();
     }
 
+    /*
+    * 计算总计和总的节省，并返回最后结果字符
+    * */
     private String getTotal() {
         StringBuilder result = new StringBuilder();
         if (!mTotalGoodses.isEmpty()) {
@@ -131,7 +153,9 @@ public class Checkout {
         return result.toString();
     }
 
-
+    /*
+    * 获取“买二赠一商品”的列表
+    * */
     private String getFreeGoodsList() {
         StringBuilder result = new StringBuilder();
         if (!mFreeGoodses.isEmpty()) {
@@ -149,8 +173,6 @@ public class Checkout {
                     goodsTypeFree = (GoodsTypeFree) goodsType;
                 } else if (type == GoodsType.TYPE_DOUBLE) {
                     goodsTypeFree = ((GoodsTypeDouble) goodsType).getGoodsTypeFree();
-                } else {
-                    continue;
                 }
                 result.append(Constant.NAME_STRING);
                 result.append(Constant.COLON);
@@ -166,6 +188,9 @@ public class Checkout {
         return result.toString();
     }
 
+    /*
+    * 获取商品列表
+    * */
     private String getGoodsList() {
         StringBuilder result = new StringBuilder();
         if (!mTotalGoodses.isEmpty()) {
@@ -173,6 +198,7 @@ public class Checkout {
             for (Goods goods : mTotalGoodses) {
                 int type = goods.getGoodsType().getType();
                 if (type == GoodsType.TYPE_FREE || type == GoodsType.TYPE_DOUBLE) {
+                    //存储“买二赠一”的商品
                     mFreeGoodses.add(goods);
                 }
                 result.append(goods.toString());
@@ -182,6 +208,7 @@ public class Checkout {
         return result.toString();
     }
 
+    //记住删掉
     public Map<String, Integer> getParseResult(String json) throws Exception {
         return parse(json);
     }

@@ -119,7 +119,7 @@ public class TestGoodsDao extends AndroidTestCase {
         Iterator iterator = content.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, GoodsType> entry = (Map.Entry<String, GoodsType>) iterator.next();
-            mGoodsDao.update(entry.getKey(), entry.getValue());
+            mGoodsDao.updateGoodsTypeByBarCode(entry.getKey(), entry.getValue());
             Goods goods = mGoodsDao.queryGoodsByBarCode(entry.getKey());
             Assert.assertEquals(entry.getValue().getType(), goods.getGoodsType().getType());
             iterator.remove();

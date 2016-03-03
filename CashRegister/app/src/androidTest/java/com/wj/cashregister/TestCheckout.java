@@ -2,6 +2,8 @@ package com.wj.cashregister;
 
 import android.test.AndroidTestCase;
 
+import com.wj.cashregister.checkout.Checkout;
+
 import junit.framework.Assert;
 
 import java.util.Map;
@@ -12,8 +14,11 @@ import java.util.Map;
  * 该类用于测试Checkout类
  */
 public class TestCheckout extends AndroidTestCase {
+    //换行
     private final char ENTER = '\n';
+    //中间分隔符
     private final String SPLIT_CENNTER = "---------------";
+    //结尾分隔符
     private final String SPLIT_END = "***************";
     //传入后台的JSON数据
     private final String JSON = "[" +
