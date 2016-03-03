@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">CashRegister</string>
+    <string name="app_name">收银机</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-
+    <string name="goods_item_count">数量</string>
+    <string name="goods_item_discount">95折</string>
+    <string name="goods_item_free">买二送一</string>
+    <string name="goods_cocacala">可口可乐</string>
+    <string name="goods_badminton">羽毛球</string>
+    <string name="goods_apple">苹果</string>
+    <string name="goods_cocacala_unit">瓶</string>
+    <string name="goods_badminton_unit">个</string>
+    <string name="goods_apple_unit">斤</string>
+    <string name="goods_count_warning">商品数量不能为空！</string>
 </resources>
