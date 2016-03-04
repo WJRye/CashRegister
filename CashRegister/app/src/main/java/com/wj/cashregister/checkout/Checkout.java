@@ -79,7 +79,7 @@ public class Checkout {
         int length = jsonArray.length();
         for (int i = 0; i < length; i++) {
             String value = jsonArray.getString(i);
-            String[] values = value.split("-");
+            String[] values = value.split(Constant.JSON_SPLIT_STRING);
             int number = 0;
             if (values.length > 1) {
                 number = Integer.parseInt(values[1]);

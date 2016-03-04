@@ -13,5 +13,6 @@
     <string name="goods_cocacala_unit">瓶</string>
     <string name="goods_badminton_unit">个</string>
     <string name="goods_apple_unit">斤</string>
-    <string name="goods_count_warning">商品数量不能为空！</string>
+    <string name="goods_count_warning">商品数量不能为空或者0！</string>
+    <string name="calculate_result">计算结果</string>
 </resources>

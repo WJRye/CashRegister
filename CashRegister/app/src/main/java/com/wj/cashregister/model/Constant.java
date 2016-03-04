@@ -14,4 +14,6 @@ public class Constant {
     public static final char COLON = '：';
     //逗号
     public static final char COMMA = '，';
+
+    public static final String JSON_SPLIT_STRING = "-";
 }

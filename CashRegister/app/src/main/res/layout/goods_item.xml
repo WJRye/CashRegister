@@ -19,6 +19,7 @@
             android:layout_height="match_parent"/>
 
         <EditText
+            android:textIsSelectable="false"
             android:singleLine="true"
             android:id="@+id/goods_item_count"
             android:textSize="@dimen/textSize_16sp"

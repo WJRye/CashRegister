@@ -27,11 +27,19 @@
     <Button
         android:onClick="onClick"
         android:layout_marginTop="@dimen/margin_15dp"
-        android:id="@+id/ok"
+        android:id="@+id/calculate_result"
         android:gravity="center"
         android:textSize="@dimen/textSize_16sp"
-        android:text="@android:string/ok"
+        android:text="@string/calculate_result"
         android:layout_width="match_parent"
         android:layout_height="@dimen/size_50dp"/>
 
+    <TextView
+        android:scrollbars="vertical"
+        android:id="@+id/goods_bill"
+        android:gravity="left"
+        android:textSize="@dimen/textSize_16sp"
+        android:layout_marginTop="@dimen/margin_15dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 </LinearLayout>
