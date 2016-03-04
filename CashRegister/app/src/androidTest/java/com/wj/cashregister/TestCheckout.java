@@ -6,8 +6,6 @@ import com.wj.cashregister.checkout.Checkout;
 
 import junit.framework.Assert;
 
-import java.util.Map;
-
 /**
  * Created by wangjiang on 2016/3/1.
  * <p/>
@@ -39,23 +37,6 @@ public class TestCheckout extends AndroidTestCase {
     public void setUp() throws Exception {
         super.setUp();
         mCheckout = new Checkout(getContext());
-    }
-
-    /*
-    *  测试解析JSON数据获得的值，注意：由于Checkout类中的解析JSON数据方法parse()为私有的，但是为了测试解析是否正确，包装了一个公有的方法getParseResul()用来做测试，但在实际中并不会用到。getParseResul()方法如下：
-    *
-    *  public Map<String, Integer> getParseResult(String json) throws Exception {
-            return parse(json);
-      }
-    *
-    * */
-    public void testParse() throws Exception {
-
-        Map<String, Integer> results = mCheckout.getParseResult(JSON);
-        Assert.assertEquals(5, results.get("ITEM000001").intValue());
-        Assert.assertEquals(2, results.get("ITEM000003").intValue());
-        Assert.assertEquals(3, results.get("ITEM000005").intValue());
-
     }
 
     /*

@@ -208,8 +208,4 @@ public class Checkout {
         return result.toString();
     }
 
-    //记住删掉
-    public Map<String, Integer> getParseResult(String json) throws Exception {
-        return parse(json);
-    }
 }
