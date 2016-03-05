@@ -41,10 +41,6 @@ public class Goods {
         this.name = name;
     }
 
-    public int getCount() {
-        return count;
-    }
-
     public void setCount(int count) {
         this.count = count;
     }
@@ -95,7 +91,7 @@ public class Goods {
             goodsTypeDiscount.setDiscountSavings(discountSavings);
         } else if (GoodsType.TYPE_FREE == type) {
             GoodsTypeFree goodsTypeFree = (GoodsTypeFree) goodsType;
-            if (count >= goodsTypeFree.getRuleMinCount()) {
+            if (count > goodsTypeFree.getRuleMinCount()) {
                 goodsTypeFree.setFreeCount(goodsTypeFree.getRuleFreeCount());
                 goodsTypeFree.setFreeSavings(goodsTypeFree.getRuleFreeCount() * price);
             }
@@ -118,7 +114,7 @@ public class Goods {
 
     @Override
     public String toString() {
-        //转换为类似名称：苹果，数量：2斤，单价：5.50(元)，小计：10.45(元)，节省0.55(元)这样的结果字符串
+        //输出商品的信息：类似“名称：苹果，数量：2斤，单价：5.50(元)，小计：10.45(元)，节省0.55(元)”这样的结果字符串
         StringBuilder sb = new StringBuilder();
         sb.append(Constant.NAME_STRING);
         sb.append(Constant.COLON);
