@@ -2,7 +2,6 @@ package com.wj.cashregister;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -141,10 +140,24 @@ public class MainActivity extends Activity {
                     return;
                 }
 
+                CheckBox[] cocaCalaViews = new CheckBox[]{mCocaCalaDiscountView, mCocaCalaFreeView};
+                CheckBox[] badmintonViews = new CheckBox[]{mBadmintonDiscountView, mBadmintonFreeView};
+                CheckBox[] appleCalaViews = new CheckBox[]{mAppleDiscountView, mAppleFreeView};
+
+                Map<CheckBox[], Integer> freeCounts = new HashMap<>();
+                freeCounts.put(cocaCalaViews, Integer.parseInt(cocaCalaCount));
+                freeCounts.put(badmintonViews, Integer.parseInt(badmintonCount));
+                freeCounts.put(appleCalaViews, Integer.parseInt(appleCount));
+
+                if (!checkFreeCount(freeCounts)) {
+                    Toast.makeText(this, R.string.goods_count_free_error, Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 Map<String, CheckBox[]> types = new HashMap<>();
-                types.put(BARCODE_COCACALA, new CheckBox[]{mCocaCalaDiscountView, mCocaCalaFreeView});
-                types.put(BARCODE_BADMINTON, new CheckBox[]{mBadmintonDiscountView, mBadmintonFreeView});
-                types.put(BARCODE_APPLE, new CheckBox[]{mAppleDiscountView, mAppleFreeView});
+                types.put(BARCODE_COCACALA, cocaCalaViews);
+                types.put(BARCODE_BADMINTON, badmintonViews);
+                types.put(BARCODE_APPLE, appleCalaViews);
                 setGoodsType(types);
 
                 Map<String, Integer> jsonData = new HashMap<>();
@@ -158,7 +171,6 @@ public class MainActivity extends Activity {
                     checkout.input(json);
                     String results = checkout.output();
                     mBillView.setText(results);
-                    Log.d("TAG", "results=" + results);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -170,6 +182,26 @@ public class MainActivity extends Activity {
 
         }
 
+    }
+
+    /*
+    * 检查输入的“买二赠一”的商品数量是否正确
+    * */
+    private boolean checkFreeCount(Map<CheckBox[], Integer> freeCounts) {
+        Iterator i = freeCounts.entrySet().iterator();
+        while (i.hasNext()) {
+            Map.Entry<CheckBox[], Integer> entry = (Map.Entry<CheckBox[], Integer>) i.next();
+            CheckBox[] value = entry.getKey();
+            if (!value[0].isChecked() && value[1].isChecked()) {
+                int count = entry.getValue();
+                GoodsTypeFree goodsTypeFree = new GoodsTypeFree();
+                if (count == goodsTypeFree.getRuleMinCount()) {
+                    return false;
+                }
+            }
+            i.remove();
+        }
+        return true;
     }
 
     /*

@@ -14,6 +14,6 @@ public class Constant {
     public static final char COLON = '：';
     //逗号
     public static final char COMMA = '，';
-
+    //在JSON中用于分割条形码和数量的分隔符
     public static final String JSON_SPLIT_STRING = "-";
 }

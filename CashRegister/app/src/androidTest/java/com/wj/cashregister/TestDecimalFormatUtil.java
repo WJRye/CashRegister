@@ -8,8 +8,10 @@ import junit.framework.Assert;
 
 /**
  * Created by wangjiang on 2016/3/3.
+ * <p/>
+ * 该类用于测试小数转化类DecimalFormatUtil
  */
-public class TestDecimalFormatUtil extends AndroidTestCase{
+public class TestDecimalFormatUtil extends AndroidTestCase {
 
     public void testFormat() throws Exception {
 

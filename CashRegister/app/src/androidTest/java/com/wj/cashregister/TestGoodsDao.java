@@ -75,7 +75,7 @@ public class TestGoodsDao extends AndroidTestCase {
         content.put(BARCODE_BADMINTON, new GoodsTypeFree());
         content.put(BARCODE_COCACALA, new GoodsTypeFree());
         content.put(BARCODE_APPLE, new GoodsTypeNormal());
-        testUpdate(content);
+        testUpdateGoodsTypeByBarCode(content);
     }
 
     /*
@@ -86,7 +86,7 @@ public class TestGoodsDao extends AndroidTestCase {
         content.put(BARCODE_BADMINTON, new GoodsTypeNormal());
         content.put(BARCODE_COCACALA, new GoodsTypeNormal());
         content.put(BARCODE_APPLE, new GoodsTypeNormal());
-        testUpdate(content);
+        testUpdateGoodsTypeByBarCode(content);
     }
 
     /*
@@ -97,7 +97,7 @@ public class TestGoodsDao extends AndroidTestCase {
         content.put(BARCODE_BADMINTON, new GoodsTypeNormal());
         content.put(BARCODE_COCACALA, new GoodsTypeNormal());
         content.put(BARCODE_APPLE, new GoodsTypeDiscount());
-        testUpdate(content);
+        testUpdateGoodsTypeByBarCode(content);
     }
 
     /*
@@ -108,14 +108,14 @@ public class TestGoodsDao extends AndroidTestCase {
         content.put(BARCODE_BADMINTON, new GoodsTypeDouble());
         content.put(BARCODE_COCACALA, new GoodsTypeFree());
         content.put(BARCODE_APPLE, new GoodsTypeDiscount());
-        testUpdate(content);
+        testUpdateGoodsTypeByBarCode(content);
     }
 
     /*
     *
-    * 测试GoodsDao类中update()方法
+    * 测试GoodsDao类中updateGoodsTypeByBarCode()方法
     * */
-    public void testUpdate(Map<String, GoodsType> content) {
+    public void testUpdateGoodsTypeByBarCode(Map<String, GoodsType> content) {
         Iterator iterator = content.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<String, GoodsType> entry = (Map.Entry<String, GoodsType>) iterator.next();
